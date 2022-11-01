@@ -2,6 +2,7 @@
 #define MAIN_CPP_ANGAJAT_H
 #include <iostream>
 #include <cstring>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -20,10 +21,7 @@ public:
         idAngajat = _idAngajat;
         idDepartament = _idDepartament;
         varstaAngajat = _varstaAngajat;
-        delete[] numeAngajat;
-        size_t len = strlen(_numeAngajat) + 1;
-        char *numeAngajat = new char[len];
-        strcpy(numeAngajat, _numeAngajat);
+        strcpy_s(numeAngajat, sizeof numeAngajat, _numeAngajat);
 
     }
     Angajat(const Angajat &rhs)
@@ -33,7 +31,7 @@ public:
         varstaAngajat = rhs.varstaAngajat;
         size_t lungimeNume = strlen(rhs.numeAngajat);
         numeAngajat = new char[lungimeNume+1];
-        strcpy(numeAngajat , rhs.numeAngajat);
+        strcpy_s(numeAngajat, sizeof numeAngajat, rhs.numeAngajat);
     }
 
     void afisareAngajat () const
@@ -55,7 +53,7 @@ public:
             if(_numeAngajat[i]>= '0' && _numeAngajat[i] <= '9')
                 ok = false;
         if(ok)
-            strcpy(numeAngajat, _numeAngajat);
+            strcpy_s(numeAngajat, sizeof numeAngajat, _numeAngajat);
         else
         {
             std::cout<<"Numele introdus este invalid. Incearca cu alt nume\n";
@@ -68,25 +66,25 @@ public:
         return  idDepartament;
     }
 
-    void set_idDepartament(int idDepartament)
+    void set_idDepartament(int _idDepartament)
     {
-        if(idDepartament<100 || idDepartament>300)
+        if(_idDepartament<100 || _idDepartament>300)
         {
             std::cout<<"Id-ul de departament introdus este invalid \n";
             return;
         }
         else
-            this->idDepartament = idDepartament;
+            idDepartament = _idDepartament;
     }
 
     int get_varsta() const
     {
         return  varstaAngajat;
     }
-    void set_varsta(int varstaAngajat)
+    void set_varsta(int _varstaAngajat)
     {
-        if(varstaAngajat>=18)
-            this->varstaAngajat = varstaAngajat;
+        if(_varstaAngajat>=18)
+            varstaAngajat = _varstaAngajat;
         else
         {
             std::cout<<"Firma nu angajeaza minori. Introduce alta varsta!\n";
@@ -97,10 +95,10 @@ public:
     {
         return  idAngajat;
     }
-    void set_idAngajat(int idAngajat)
+    void set_idAngajat(int _idAngajat)
     {
-        if(idAngajat>=100001 && idAngajat<=300999)
-            this->idAngajat = idAngajat;
+        if(_idAngajat>=100001 && idAngajat<=300999)
+            idAngajat = _idAngajat;
         else
         {
             std::cout<<"Formatul id-ului de angajat este ######, unde primele 3 cifre reprezinta departamentele\n";
@@ -112,7 +110,7 @@ public:
         delete [] numeAngajat;
         size_t len = strlen(rhs.numeAngajat)+1;
         numeAngajat = new char[len];
-        strcpy(numeAngajat,rhs.numeAngajat);
+        strcpy_s(numeAngajat, sizeof numeAngajat, rhs.numeAngajat);
         idAngajat = rhs.idAngajat;
         idDepartament = rhs.idDepartament;
         varstaAngajat = rhs.idAngajat;
@@ -136,7 +134,7 @@ public:
         fflush(stdin);
         size_t len = strlen(numeTemp) +1;
         angajat.numeAngajat = new char[len];
-        strcpy(angajat.numeAngajat, numeTemp);
+        strcpy_s(angajat.numeAngajat,sizeof angajat.numeAngajat, numeTemp);
 
         cout<<"Introduceti varsta angajatului:\n";
         inputStream>>angajat.varstaAngajat;
