@@ -2,7 +2,6 @@
 #define MAIN_CPP_ANGAJAT_H
 #include <iostream>
 #include <cstring>
-#include <stdlib.h>
 
 using namespace std;
 
@@ -21,7 +20,7 @@ public:
         idAngajat = _idAngajat;
         idDepartament = _idDepartament;
         varstaAngajat = _varstaAngajat;
-        strcpy_s(numeAngajat, sizeof numeAngajat, _numeAngajat);
+        strcpy(numeAngajat, _numeAngajat);
 
     }
     Angajat(const Angajat &rhs)
@@ -31,7 +30,7 @@ public:
         varstaAngajat = rhs.varstaAngajat;
         size_t lungimeNume = strlen(rhs.numeAngajat);
         numeAngajat = new char[lungimeNume+1];
-        strcpy_s(numeAngajat, sizeof numeAngajat, rhs.numeAngajat);
+        strcpy(numeAngajat , rhs.numeAngajat);
     }
 
     void afisareAngajat () const
@@ -53,7 +52,7 @@ public:
             if(_numeAngajat[i]>= '0' && _numeAngajat[i] <= '9')
                 ok = false;
         if(ok)
-            strcpy_s(numeAngajat, sizeof numeAngajat, _numeAngajat);
+            strcpy(numeAngajat, _numeAngajat);
         else
         {
             std::cout<<"Numele introdus este invalid. Incearca cu alt nume\n";
@@ -110,7 +109,7 @@ public:
         delete [] numeAngajat;
         size_t len = strlen(rhs.numeAngajat)+1;
         numeAngajat = new char[len];
-        strcpy_s(numeAngajat, sizeof numeAngajat, rhs.numeAngajat);
+        strcpy(numeAngajat,rhs.numeAngajat);
         idAngajat = rhs.idAngajat;
         idDepartament = rhs.idDepartament;
         varstaAngajat = rhs.idAngajat;
@@ -134,7 +133,7 @@ public:
         fflush(stdin);
         size_t len = strlen(numeTemp) +1;
         angajat.numeAngajat = new char[len];
-        strcpy_s(angajat.numeAngajat,sizeof angajat.numeAngajat, numeTemp);
+        strcpy(angajat.numeAngajat, numeTemp);
 
         cout<<"Introduceti varsta angajatului:\n";
         inputStream>>angajat.varstaAngajat;
