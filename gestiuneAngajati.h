@@ -82,10 +82,16 @@ public:
         cout<<numarAngajati<<endl;
 
         this->listaAngajati = (Angajat**) realloc(listaAngajati, (this->numarAngajati +2)*sizeof(Angajat*));
-        for(int i= oldNum; i< numarAngajati; i++)
-            *listaAngajati[i] = *rhs.listaAngajati[i];
-        return *this;
+        if(listaAngajati) {
+            for (int i = oldNum; i < numarAngajati; i++)
+                *listaAngajati[i] = *rhs.listaAngajati[i];
 
+        }
+        else
+        {
+            cout<<"Alocarea nu a putut sa fie executata!";
+        }
+        return *this;
     }
     friend ostream &operator<<(ostream& outputStream, const gestiuneAngajati& gestiune)
     {
@@ -117,7 +123,7 @@ public:
     ~gestiuneAngajati()
     {
             for(int i = 0; i < numarAngajati; i++)
-                delete listaAngajati[i];
+                delete[] listaAngajati[i];
 
             delete [] listaAngajati;
     }
